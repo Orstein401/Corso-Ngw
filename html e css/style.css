@@ -1,0 +1,18 @@
+h1 {
+    color: rgb(5, 119, 53);
+}
+h2 {
+    color:rgb(5, 119, 53);
+}
+#btn:hover{
+    background-color: #114401;
+}
+table, th, td {
+    border: 2px solid grey;
+  }
+  @media (min-width: 786px) {
+    .img-res{
+        width: 30%;
+        height: auto;
+      }
+  }
