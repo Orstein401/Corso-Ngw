@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head> <h1> Esercizio Javascript2</h1></head>
+    <body>
+      <p> Esercizio lista della spesa</p>
+    </body>
+    <script>
+      
+      function b(){
+        const lista=[];
+        let verifica=" ";
+        let i=0;
+        let mes="o";
+        while(verifica !="no"){
+          mes= prompt("inserisci prodotto");
+          alert("prodotto inserito");
+          lista[i]=mes;
+          verifica= prompt("vuoi inserire un nuovo prodotto, digita si per continuare, digita no per fermati");
+        
+          i++;
+        }
+        console.log(i);
+        console.log(lista);
+      }
+      b();
+    
+    </script>
+</html>

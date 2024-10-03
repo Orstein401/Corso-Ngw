@@ -1,0 +1,35 @@
+<html></html>
+    <head> <h1> Esercizio Javascript 2 seconda parte</h1></head>
+    <body>
+      <p>Esercizio lista metti o togli</p>
+    </body>
+    <script>
+  
+    const lista=[0];
+     
+    let t=0;
+    let i=0;
+    
+    while(t<1){
+        mT= prompt("digita si per mettere un elemento o rimuovi per togliere l'ultimo elemento messo, per finire digitare esci");
+      
+        switch (mT){
+            case "si": 
+            prod= prompt("inserisci prodotto");
+            lista[i]=prod;
+            break;
+            case "rimuovi":
+            lista.pop();
+            i--;
+            break;
+            case "esci":
+            t=6;
+            break;
+       }
+       i++
+    }
+    console.log(lista);
+ //   }
+
+    </script>
+</html>
