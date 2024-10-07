@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <h1> Esercizio 3 di javascript</h1>
+    </head>
+    <body>
+
+    </body>
+    <script>
+      function ctrLista(){
+        const lista={};
+        let mes;
+        
+           while(mes!="esci")   {
+            mes= prompt("premi si per aggiungere prodotto, rim per rimuoverlo, vis per visuallizare esci per uscire");
+            switch (mes){
+                case "si":
+              let prod= prompt("inserisci prodotto");
+                let qa= prompt("inserisci quantità");
+                    lista[prod]=qa;
+                    break;
+                case "rim":
+                let del= prompt("inserisci prodotto da rimuovere");
+                delete lista[del];
+                break;
+                case "vis":
+                console.log(lista)
+                break;
+            }
+           }
+           console.log(lista)
+      }
+      ctrLista();
+     /* const p=[];
+      p["cipo"]="21";
+      p["tra"]="50";
+      t= prompt("tata");
+      p[t]="100";
+      console.log(p);*/
+    </script>
+</html>

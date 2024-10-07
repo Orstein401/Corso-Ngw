@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <h1> Esercizio 3 di javascript parte 2 </h1>
+    </head>
+    <body>
+        <header>
+            <h2> Inserisci i tuoi dati per registrati</h2>
+        </header>
+        <!-- qui creo il form dove dopo verrano attacati al di sotto i vari eleementi -->
+        <form id="dati">
+            <input type="text" id="nome">
+            <input type="text" id="cognome">
+            <input type="email" id="email">
+            <input type="password" id="password">
+            <button type="submit">invia</button>
+
+        </form>
+        <script>
+            let dati= document.getElementById("dati");
+            const lista=[];
+            // aggiungo un event Listener a dati(form) che controlla se il bottone submit sia stato premuto e con preventDefault impedisco che la pagina si ricarica a causa del submit
+            dati.addEventListener("submit", function(){
+            event.preventDefault();
+            // creo i vari elementi che mi servono come: il div, il titolo e la lista con i suoi valori
+                    let div= document.createElement("div");
+                    let titolo=document.createElement("h1");
+                    let lista= document.createElement("ul");
+                    let nome= document.createElement("li");
+                    let cognome= document.createElement("li");
+                    let email= document.createElement("li");
+                    let password= document.createElement("li");
+
+                // sto dando ai vari elementi i valori che gli dovrebbero corrispondere 
+                    titolo.innerText="Benvenuto al tuo profilo";
+                    nome.innerText= document.getElementById("nome").value;;
+                    cognome.innerText= document.getElementById("cognome").value;;
+                    email.innerText= document.getElementById("email").value;;
+                    password.innerText= document.getElementById("password").value;
+                // console log lo utillizo per vedere se tutti gli elementi e dati siano stati messi corretamente
+                    console.log(div);
+                // verifico se uno dei dati è mancate, utilizzo la versione "!=" perchè ho notato che la versione"==" considera lo spazio " " come un carattere a differenza dell'altra che non fa distinzioni
+                if(nome.innerText!="" && cognome.innerText!="" && password.innerText!=""&& email.innertext!=""){
+                    document.getElementById("dati").appendChild(div);
+                    div.appendChild(titolo);
+                    div.appendChild(lista);
+                    lista.appendChild(nome);
+                    lista.appendChild(cognome);
+                    lista.appendChild(email);
+                    lista.appendChild(password);
+                }else{
+                    console.log("errore, uno o più dati non sono stati inseriti")
+                }
+                //in caso di mancaza comparira un messaggio di errore nella console
+            })
+        </script>
+    
+    </body>
+    <script>
+     
+  
+    </script>
+</html>
