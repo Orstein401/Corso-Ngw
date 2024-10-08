@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <h1> Accedi a The Meal</h1>
+    </head>
+    <body>
+        <form id="accedi">
+            <input type="text" id="nome_utente" placeholder="nome utente o email">
+            <input type="password" id="password" placeholder="password">
+            <button type="submit">invia</button>
+
+        </form>
+     <script >
+        let reg =document.getElementById("accedi")
+            reg.addEventListener("submit", function(){
+             event.preventDefault();
+            let username= localStorage.getItem("username")
+            let code= localStorage.getItem("password")
+            let email= localStorage.getItem("email")
+            console.log(username)
+            console.log(code)
+            console.log(email)
+             nome_utente= document.getElementById("nome_utente").value;
+             password= document.getElementById("password").value;
+             if(password== code && nome_utente == username || nome_utente== email){
+                window.location.href="menu.html";
+             }else if(nome_utente != "" && password !=""){
+                console.warn("uno dei campi è errato")
+             }else{
+                console.warn("uno dei campi non è stato riempito")
+             }
+     
+     
+            })
+     </script>
+</html>

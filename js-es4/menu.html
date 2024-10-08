@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <h1> Menu The Meal</h1>
+    </head>
+    <body>
+        <h2> Cerca il tuo piatto</h2>
+        <form id="cerca">
+            <input type="text" id="nome_pietanza">
+            <button onclick="da()">invia</button>
+
+        </form>
+        <section id="risultato"> </section>
+    </body>
+    <script>
+       function create_lista(piatti){
+       document.getElementById("risultato").innerHTML="";
+       let ris= document.getElementById("risultato")
+
+                    for(let i= 0; i < piatti.length; i++){
+                    let div= document.createElement("div")
+                    let hnome= document.createElement("h3")
+                    let imgMeal= document.createElement("img")
+                    let ingredients= document.createElement("p")
+                    hnome.innerHTML= piatti[i].strMeal;
+                    imgMeal.src= piatti[i].strMealThumb;
+                    ingredients.innerHTML=piatti[i].strInstructions;
+                
+                    div.appendChild( hnome)
+                    div.appendChild(imgMeal)
+                    div.appendChild(ingredients)
+                    document.getElementById("risultato").appendChild(div)
+                    }
+        }
+
+       
+      async function da () {
+        event.preventDefault();
+        let piatto= document.getElementById("nome_pietanza").value
+        let limk =await fetch(
+            `https://www.themealdb.com/api/json/v1/1/search.php?s=${piatto}`
+        ); 
+       let lista= await limk.json();
+       console.log(lista.meals);
+       if (piatto!=""){
+        create_lista(lista.meals);
+        console.log("sasas")
+       }else{
+        console.warn("non sono stati inseriti dati")
+       }
+       
+       }
+       
+      
+    </script>
+</html>

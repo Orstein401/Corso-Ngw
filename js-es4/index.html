@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <h1> Registrazione a The Meal</h1>
+    </head>
+    <body>
+        <form id="registrazione">
+            <input type="text" id="nome_utente" placeholder="nome utente">
+            <input type="email" id="email" placeholder="email">
+            <input type="password" id="password" placeholder="password">
+            <button type="submit">invia</button>
+
+        </form>
+        <script>
+         let reg =document.getElementById("registrazione")
+            reg.addEventListener("submit", function(){
+             event.preventDefault();
+     
+             nome= document.getElementById("nome_utente").value;
+             email= document.getElementById("email").value;;
+             password= document.getElementById("password").value;
+     
+             if(nome!="" && password!="" && email !=""){
+                localStorage.setItem("username", nome)
+                localStorage.setItem("email", email)
+                localStorage.setItem("password", password)
+                
+                window.location.href="accedi.html";
+     
+             }else{
+                 console.error("uno dei valori non è stato inserito")
+             }
+     
+            })
+         </script>
+    </body>
+</html>
