@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <h1> Meteo.App</h1>
+    </head>
+    <body>
+        <h2> digita la tua città</h2>
+        <form id="cerca">
+            <input type="text" id="citta">
+            <button onclick="risposta()">invia</button>
+
+        </form>
+        <section id="risultato"> </section>
+    </body>
+    <script>
+       function meteo(citta){
+       document.getElementById("risultato").innerHTML="";
+       let ris= document.getElementById("risultato")
+        console.log(ris)
+        let div= document.createElement("div")
+            let nome_citta= document.createElement("h2")
+            let imgMeteo= document.createElement("img")
+            let descrizione= document.createElement("p")
+
+            let testo= "il tempo è: "+citta.current.condition.text+" con umidita pari a: "+citta.current.humidity+"% e una velocità del vento di "+citta.current.wind_mph+"mph"
+            let location="il tempo della città "+citta.location.name+
+            console.log(citta.current.humidity)
+
+            nome_citta.innerHTML= citta.location.name;
+            imgMeteo.src= citta.current.condition.icon
+            descrizione.innerHTML=testo
+
+
+
+                
+            div.appendChild(nome_citta)
+            div.appendChild(imgMeteo)
+            div.appendChild(descrizione)
+            document.getElementById("risultato").appendChild(div)
+        }
+
+       
+      async function risposta () {
+        event.preventDefault();
+        let citta= document.getElementById("citta").value
+        let limk =await fetch(
+            `http://api.weatherapi.com/v1/current.json?key=cac078cab5bd473d844124923240710&q=${citta}&aqi=no`
+        ); 
+       let lista= await limk.json();
+       console.log(lista);
+       if (citta!=""){
+        meteo(lista);
+        
+       }else{
+        console.warn("non sono stati inseriti dati")
+       }
+      }
+       
+      
+    </script>
+</html>
