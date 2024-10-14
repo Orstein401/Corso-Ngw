@@ -13,9 +13,7 @@ class Veicolo{
         console.log("la macchina è il modello: "+this.modello+" del marchio "+this.marca+" può raggiungere una velocità di "+this.velocitaMax+"km/h")
         
     }
-    oid():void{
-        console.log("tttttttttttttttttt")
-    }
+   
 }
 class Auto extends Veicolo{
     numPorte:number
