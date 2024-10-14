@@ -9,9 +9,7 @@ class Veicolo {
     descrizione() {
         console.log("la macchina è il modello: " + this.modello + " del marchio " + this.marca + " può raggiungere una velocità di " + this.velocitaMax + "km/h");
     }
-    oid() {
-        console.log("tttttttttttttttttt");
-    }
+   
 }
 class Auto extends Veicolo {
     constructor(Marca, Modello, velM, Targa, numPorte) {
@@ -33,8 +31,9 @@ class Moto extends Veicolo {
 }
 const bmw = new Veicolo("bmw", "ztg", 190, "4tgg54");
 bmw.descrizione();
-bmw.oid();
+console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
 const panda = new Auto("Fiat", "Panda", 410, "Destroyer", 4);
 panda.descrizione();
+console.log("tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
 const vespa = new Moto("Piaggio", "Vespa", 300, "35tgf", "standard");
 vespa.descrizione();
