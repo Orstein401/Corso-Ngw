@@ -93,24 +93,25 @@ def clicca_link_tarrifario(driver):
 
 def scarica_file_tariffario(driver):
     try:
-        # Attendi che il link "Dati della rete micrometeorologica" sia visibile
-        links= WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.TAG_NAME, 'a')), )
-    except NoSuchElementException:
-        logging.error("link non trovato")
-        for link in links:
-            try:
-                href=link.get_attribute('href')
+        # Attendi che tutti i link che terminano con '.pdf' siano presenti
+        links = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "a[href$='.pdf']")))
+
+        if not links:
+            logging.error("Nessun link trovato.")
+        else:
+            for link in links:
+                href = link.get_attribute('href')
                 if href:
-                    driver.execute_script("arguments[0].click();", href)
+                    driver.execute_script("arguments[0].click();", link)
                     logging.info("Link cliccato con successo.")
 
-            except NoSuchElementException:
-             logging.error("link non trovato")
-            except ElementClickInterceptedException:
-             logging.error("link bloccato")
-            except Exception as e:
-             logging.error(f"Errore imprevisto: {str(e)}")
-   
+    except NoSuchElementException:
+        logging.error("Nessun link trovato.")
+    except ElementClickInterceptedException:
+        logging.error("Link bloccato.")
+    except Exception as e:
+        logging.error(f"Errore imprevisto: {str(e)}")
+    
         
 accetta_cookie(driver)
 clicca_bottone_servizio(driver)
