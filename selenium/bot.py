@@ -17,37 +17,63 @@ logging.basicConfig(level=logging.INFO)
 API_TOKEN = '7979618656:AAFKKnrE_LKPRcRspIvldtQpUEpSsn6Iyzc'  # Inserisci il tuo token Telegram
 bot = telebot.TeleBot(API_TOKEN)
  
-# Percorso del driver di Chrome specifico
-chrome_driver_path = r"C:\Users\alero\OneDrive\Desktop\chromedriver-win64\chromedriver.exe"
- 
-def search_amazon(nome):
-    driver = init_driver()  # Inizializza il driver
-    try:
-        driver.get("https://www.amazon.it")
-        time.sleep(2)  # Aspetta che la pagina si carichi
 
-        # Trova il campo di ricerca e inserisci il prodotto
+chrome_driver_path = r"C:\Users\alero\OneDrive\Desktop\chromedriver-win64\chromedriver.exe"
+
+
+def init_driver():
+    service = Service(chrome_driver_path)
+    options = Options()
+    options.add_argument("--headless")  # Esegui il browser in modalità headless
+    driver = Chrome(service=service, options=options)
+    return driver
+
+
+def botton_cookie(driver):
+    try:
+        cookie = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.ID, "sp-cc-accept"))
+        )
+        cookie.click()
+        logging.info("Cookie accettati con successo.")
+    except NoSuchElementException:
+        logging.error("Il bottone per accettare i cookie non è stato trovato.")
+    except ElementClickInterceptedException:
+        logging.error("Il click sul bottone dei cookie è stato bloccato.")
+    except Exception as e:
+        logging.error(f"Errore imprevisto: {str(e)}")
+
+
+def search_amazon(nome):
+    driver = init_driver() 
+    driver.get("https://www.amazon.it")
+    botton_cookie(driver)
+    
+    try:
         search_box = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, "twotabsearchtextbox"))
         )
         search_box.send_keys(nome)
         search_box.send_keys(Keys.RETURN)
 
-        # Aspetta i risultati della ricerca
-        time.sleep(3)  # Potresti usare WebDriverWait qui
+        
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".s-main-slot .s-result-item"))
+        )
 
         # Ottieni i prodotti
         products = []
-        items = driver.find_elements(By.CSS_SELECTOR,'div.s-main-slot div.s-result-item')
+        items = driver.find_elements(By.CSS_SELECTOR,'.s-main-slot .s-result-item')
 
-        for item in items:
-            title = item.find_element(By.CSS_SELECTOR,'h2.a-size-mini.a-spacing-none.a-color-base.s-line-clamp-4').text
+        for item in items[11]:
             try:
+                title = item.find_element(By.CSS_SELECTOR,'h2.a-size-mini.a-spacing-none.a-color-base.s-line-clamp-4').text
                 price = item.find_element(By.CSS_SELECTOR, 'span.a-price-whole').text
+                products.append({"title": title, "price": price})
             except NoSuchElementException:
                 price = "Prezzo non disponibile"
-
-            products.append({"title": title, "price": price})
+                continue
+               
 
         return products
     except NoSuchElementException:
@@ -58,13 +84,6 @@ def search_amazon(nome):
         logging.error(f"Errore imprevisto: {str(e)}")
     finally:
         driver.quit()
-# Funzione per avviarclse il driver di Selenium
-def init_driver():
-    service = Service(chrome_driver_path)
-    options = Options()
-    options.add_argument("--headless")  # Esegui il browser in modalità headless
-    driver = Chrome(service=service, options=options)
-    return driver
 
 # Gestione dei comandi /start e /help
 @bot.message_handler(commands=['start', 'help'])
